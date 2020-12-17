@@ -1,29 +1,25 @@
 
 //----------- services
-
 const loggerService=require("./logger")
 const mailService=require("./mailService")
 
 
-const handleError=(error)=>{
+const handleError = (message)=>{
 
     // do handling error here
     if( typeof error==='object')
-        loggerService.log({ message: error.stack || error.message, logToConsole:true})
-    else loggerService.log({ message: error, logToConsole: true })
+        message =  error.stack || error.message || error.response
 
+    loggerService.log({ message, logToConsole: true })
 
+    if (process.env.NOTIFY_ON_ERROR==='YES')
+      mailService.sendMailFromApp({
+          to: process.env.SUPPORT_EMAIL,
+          from: process.env.SUPPORT_EMAIL,
+          subject:"Error in Task Manager App",
+          text:message
+      })
 
-    /*  mailService.sendMail({
-    userName:"kbdrreddy10@gmail.com",
-    password:"***",
-    from:"kbdrreddy10@gmail.com",
-    to:"kbdrreddy10@gmail.com",
-    subject:"Mail from Node",
-    textMessage:"Hello",
-    htmlMessage:"<h1>Hello</h1>"
-    })
- */
 
 }
 

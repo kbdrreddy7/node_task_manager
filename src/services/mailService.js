@@ -1,4 +1,5 @@
-const nodemailer=require("nodemailer")
+const nodemailer=require("nodemailer");
+const errorHandler = require("./errorHandler");
 
 
 
@@ -17,28 +18,25 @@ const sendMail = ({ user, pass,from,to,subject, text, html})=>{
 
     smtpTransport.sendMail(mailOptions, function(error, response){
         if(error){
-            console.log(error);
+            errorHandler.handleError(`mail with subject ${subject} sending failed to ${to} and error response is: ${error.response}`)
         }else{
-            //res.redirect('/');
-            console.log(" success response ", response)
+            //console.log( response.response)
+            console.log(`mail with subject ${subject} sent successfullt to ${to}`)
+
         }
     });
 }
 
 const sendMailFromApp = ({ to, subject, text, html})=>{
-
     sendMail({
         user: process.env.SUPPORT_EMAIL,
         pass: process.env.SUPPORT_EMAIL_PASSWORD,
-        from:"Task Manager App",
-        ...to, subject, text,html
+        from: process.env.SUPPORT_EMAIL,
+        to, subject, text,html
     })
 
 }
 
-/* sendMailFromApp({
-    to:"kbdrreddy7@gmail.com", subject:"testing",text:"WHS"
-}) */
 
 module.exports={
     sendMail,

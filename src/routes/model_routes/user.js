@@ -13,7 +13,6 @@ const {userLoginValidator}=require("../../validators")
 // services
 const { utilService, userService, globalService,mailService}=require("../../services")
 
-
 // middlewares
 const { authentication}=require("../../middlewares")
 
@@ -42,8 +41,8 @@ try {
                 if (process.env.NOTIFY_ON_LOGIN==='YES')
                     mailService.sendMailFromApp({
                         to: email,
-                        subject:"Login Detected to Task Manager App",
-                        text: `login is detected from the IP address ${id} at ${new Date().toGMTString()} using ${app_type} app`
+                        subject:"Login Detected in Task Manager App",
+                        text: `login is detected in the Task Manager App from the ${ip} IP address at ${new Date().toGMTString()} using ${app_type} app`
                     })
                    
 
