@@ -11,9 +11,12 @@ const sequelize = new Sequelize
     pool: {
         max: 5,
         min: 0,
-        acquire: 30000,
+        acquire: 30000, // 600000
         idle: 10000
       },
+    dialectOptions: {
+      options: { requestTimeout: 300000 }
+    },
      // logging:  false,
       define: {
         //prevent sequelize from pluralizing table names

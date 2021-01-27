@@ -42,12 +42,12 @@ try {
                     mailService.sendMailFromApp({
                         to: email,
                         subject:"Login Detected in Task Manager App",
-                        text: `login is detected in the Task Manager App from the ${ip} IP address at ${new Date().toGMTString()} using ${app_type} app`
+                        text: `login is detected in the Task Manager App from the ${ip} IP address at ${new Date().toGMTString()} through ${app_type} app`
                     })
                    
 
 
-                const payload = {_id, user_name, login_time, first_name, last_name}
+                const payload = { _id, user_name, login_time, first_name, last_name, email}
               
                 let token=utilService.convertToToken(payload)
                  
